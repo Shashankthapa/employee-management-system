@@ -15,7 +15,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const UpdateEmployee = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     emp_username: "",
     email: "",
@@ -30,10 +30,19 @@ const UpdateEmployee = () => {
   //   console.log("ID: " + JSON.stringify(id))
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("emp_username", user.emp_username);
+    formData.append("email", user.email);
+    formData.append("occupation", user.occupation);
+    formData.append("gender", user.gender);
+    formData.append("education", user.education);
+    formData.append("phoneno", user.phoneno);
+    formData.append("image", user.file);
     await axios
-      .post(`http://localhost:3000/updateemployee/${id}`, user)
-      .then((res) => {console.log(res.data)
-        navigate("/show-employee")
+      .post(`http://localhost:3000/updateemployee/${id}`, formData)
+      .then((res) => {
+        console.log(res.data);
+        navigate("/show-employee");
       })
       .catch((rej) => console.log(rej));
   };
@@ -113,18 +122,29 @@ const UpdateEmployee = () => {
         </HStack>
       </RadioGroup>
 
-      <CheckboxGroup
-        value={[`${user.education}`]}
+      <Stack
+        spacing={[1, 5]}
+        direction={["column", "row"]}
         onChange={(e) => setUser({ ...user, education: e.target.value })}
       >
-        <Stack spacing={[1, 5]} direction={["column", "row"]}>
-          <Checkbox value="MCA">MCA</Checkbox>
-          <Checkbox value="BCA">BCA</Checkbox>
-          <Checkbox value="BSC">BSC</Checkbox>
-          <Checkbox value="BE">BE</Checkbox>
-          <Checkbox value="OTHER">OTHER</Checkbox>
-        </Stack>
-      </CheckboxGroup>
+        {/* <HStack spacing="24px"> */}
+        <Checkbox value="MCA" isChecked={user.education.includes("MCA")}>
+          MCA
+        </Checkbox>
+        <Checkbox value="BCA" isChecked={user.education.includes("BCA")}>
+          BCA
+        </Checkbox>
+        <Checkbox value="BSC" isChecked={user.education.includes("BSC")}>
+          BSC
+        </Checkbox>
+        <Checkbox value="BE" isChecked={user.education.includes("BE")}>
+          BE
+        </Checkbox>
+        <Checkbox value="OTHER" isChecked={user.education.includes("OTHER")}>
+          OTHER
+        </Checkbox>
+        {/* </HStack> */}
+      </Stack>
 
       <Input
         type="file"

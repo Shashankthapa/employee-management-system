@@ -69,7 +69,7 @@ const DisplayEmployee = ({ itemsPerPage }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/show-employee", { withCredentials: true })
+      .get("http://localhost:3000/api/employee/display", { withCredentials: true })
       .then(async (res) => {
         const data = res.data.emp;
         setEmpData(data);

@@ -17,7 +17,7 @@ const employeeSchema = Schema({
   occupation: String,
   gender: String,
   education: String,
-  phoneno: String,
+  phoneno: Number,
   file : String,
 });
 

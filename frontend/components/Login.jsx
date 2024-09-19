@@ -9,7 +9,7 @@ const Login = ({ setDisplayName, navigate }) => {
   const loginPass = async () => {
     try {
       const login_data = await axios.post(
-        "http://localhost:3000/login",
+        "http://localhost:3000/api/user/login",
         {
           username: username,
           password: password,

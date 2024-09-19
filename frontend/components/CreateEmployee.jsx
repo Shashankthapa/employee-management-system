@@ -39,14 +39,17 @@ const CreateEmployee = () => {
     formData.append("gender", gender);
     formData.append("education", education);
     formData.append("phoneno", phNo);
-    // key and value should not have the same name or else it will throw error.
     formData.append("image", file);
     try {
       const formPost = await axios.post(
-        "http://localhost:3000/create-emp",
+        "http://localhost:3000/api/employee/create",
         formData,
+        // {emp_username : name},
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       console.log(formPost.response);
@@ -62,14 +65,17 @@ const CreateEmployee = () => {
       </FormLabel>
 
       <Input
+        type="text"
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
       />
       <Input
+        type="text"
         placeholder="Enter your email"
         onChange={(e) => setEmail(e.target.value)}
       />
       <Input
+        type="number"
         onChange={(e) => setPhNo(e.target.value)}
         placeholder="Enter your mobile no"
       />
